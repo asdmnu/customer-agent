@@ -1,0 +1,4 @@
+classifier_prompt_path: backend/prompts/classifier_prompt.txt
+answer_prompt_path: backend/prompts/answer_prompt.txt
+action_system_prompt_path: backend/prompts/action_system_prompt.txt
+action_category_classifier_prompt_path: backend/prompts/action_category_classifier_prompt.txt

@@ -1,0 +1,12 @@
+chunk_size: 400
+chunk_overlap: 80
+top_k: 3
+allow_knowledge_file_type:
+  - txt
+separators:
+  - "\n\n"
+  - "\n"
+  - "。"
+  - "，"
+  - " "
+  - ""

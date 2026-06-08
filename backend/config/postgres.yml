@@ -1,0 +1,13 @@
+host: 127.0.0.1
+port: 5433
+database: demo
+user: postgres
+password: wcx1907970573
+table_name: customer_agent3_knowledge_chunks
+embedding_dimension: 1024
+distance_strategy: cosine
+fts_regconfig: simple
+vector_search_k: 8
+keyword_search_k: 8
+hybrid_top_k: 3
+rrf_k: 60
