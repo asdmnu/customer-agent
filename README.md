@@ -1,64 +1,64 @@
-# Customer Agent 3
+# 客服助手 3
 
-Customer Agent 3 is a customer-service demo project split into two main flows:
-- `qa`: classify -> retrieve -> answer
-- `action`: classify -> LangChain agent -> business tools
+客服助手 3 是一个客服场景的演示项目，拆分为两条主要流程：
+- `qa`：分类 -> 检索 -> 回答
+- `action`：分类 -> LangChain 智能体 -> 业务工具
 
-The repository keeps a structure similar to `客服agent2`, but replaces the LangGraph workflow with a lighter service orchestration layer.
+这个仓库整体结构与 `客服agent2` 类似，但将 LangGraph 工作流替换成了更轻量的服务编排层。
 
-## Project Structure
+## 项目结构
 
 ```text
 .
-|- backend/              app, flows, routers, tools, memory, stores
-|- frontend/             Streamlit demo page
-|- data/                 Sample knowledge base files
-|- logs/                 Runtime logs
-|- Dockerfile            Docker image build file
-|- docker-compose.yml    Docker Compose file
+|- backend/              应用、流程、路由、工具、记忆、存储
+|- frontend/             Streamlit 演示页面
+|- data/                 示例知识库文件
+|- logs/                 运行日志
+|- Dockerfile            Docker 镜像构建文件
+|- docker-compose.yml    Docker Compose 配置文件
 |- requirements.txt
 |- .env.example
 ```
 
-## Main Flow
+## 主流程
 
-1. FastAPI receives the user query.
-2. A routing layer decides whether the request goes to `qa` or `action`.
-3. `qa` path:
-   - retrieve knowledge-base context
-   - generate an answer from retrieved context
-4. `action` path:
-   - run a constrained `create_agent(...)`
-   - let the agent call deterministic customer-service tools
-   - return the final execution result
+1. FastAPI 接收用户问题。
+2. 路由层判断请求应进入 `qa` 还是 `action`。
+3. `qa` 路径：
+   - 检索知识库上下文
+   - 基于检索结果生成回答
+4. `action` 路径：
+   - 运行受约束的 `create_agent(...)`
+   - 让智能体调用确定性的客服工具
+   - 返回最终执行结果
 
-## Local Run
+## 本地运行
 
-1. Copy `.env.example` to `.env`
-2. Fill in `DASHSCOPE_API_KEY`
-3. Start the API:
+1. 将 `.env.example` 复制为 `.env`
+2. 填写 `DASHSCOPE_API_KEY`
+3. 启动 API：
 
 ```bash
 uvicorn backend.app.api_server:app --reload
 ```
 
-4. Optionally start the Streamlit demo:
+4. 如需体验前端演示页，可额外启动 Streamlit：
 
 ```bash
 streamlit run frontend/app.py
 ```
 
-## Docker Run
+## Docker 运行
 
-1. Prepare `.env`
-2. Start all services:
+1. 准备好 `.env`
+2. 启动全部服务：
 
 ```bash
 docker compose up --build
 ```
 
-After startup:
-- API: `http://127.0.0.1:8000`
-- Frontend: `http://127.0.0.1:8501`
+启动完成后：
+- API：`http://127.0.0.1:8000`
+- 前端：`http://127.0.0.1:8501`
 
-On first startup, the `api` service will initialize the knowledge base automatically when the pgvector table is still empty.
+首次启动时，如果 pgvector 数据表仍为空，`api` 服务会自动初始化知识库。
